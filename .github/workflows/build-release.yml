@@ -15,33 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 创建打包目录（避免包含.git文件夹）
-      - name: Prepare files
-        run: |
-          mkdir -p package/scripts package/docs
-          cp -r scripts/* package/scripts/
-          [ -d "docs" ] && cp -r docs/* package/docs/ || echo "No docs directory"
-          cp README.md LICENSE package/
-
-      # 3. 压缩打包（跨平台兼容格式）
-      - name: Create ZIP archive
-        run: |
-          cd package
-          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip *
-          cd ..
-          sha256sum GameOptimization_${GITHUB_REF_NAME}.zip > checksum.sha256
-
-      # 4. 上传到Release（自动关联到对应Tag）
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v1
+      # 2. 缓存优化
+      - uses: actions/cache@v3
         with:
-          files: |
-            GameOptimization_${GITHUB_REF_NAME}.zip
-            checksum.sha256
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动注入的权限token
+          path: |
+            package/
+          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
 
-      # 5.在打包前更新版本号
+      # 3.在打包前更新版本号
       - name: Update versions
         run: |
           # 更新脚本文件
@@ -51,7 +32,37 @@ jobs:
           # 复制更新后的文件到package目录
           cp README.md package/
 
-      # 6. 发送邮件通知
+      # 4. 创建打包目录（避免包含.git文件夹）
+      - name: Prepare files
+        run: |
+          # mkdir -p package/scripts package/docs
+          cp -r scripts/* package/
+          if [ -d "docs" ]; then
+            cp -r docs/* package/
+          else
+            echo "Warning: No docs directory found."
+          fi
+          cp README.md LICENSE package/
+
+      # 5. 压缩打包（跨平台兼容格式）
+      - name: Create ZIP archive
+        run: |
+          cd package
+          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip *
+          cd ..
+          sha256sum GameOptimization_${GITHUB_REF_NAME}.zip > checksum.sha256
+
+      # 6. 上传到Release（自动关联到对应Tag）
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            GameOptimization_${GITHUB_REF_NAME}.zip
+            checksum.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动注入的权限token
+
+      # 7. 发送邮件通知
       # - name: Send notification
       #   if: always() # 无论构建成功失败都发送
       #   uses: dawidd6/action-send-mail@v3
@@ -66,15 +77,8 @@ jobs:
       #       Status: ${{ job.status }}
       #     to: vdavidyang@gmail.com
 
-      # 7. 失败处理
+      # 8. 失败处理
       - name: Cleanup on failure
         if: failure()
         run: |
           echo "Build failed! Check the logs"
-
-      # 8. 缓存优化
-      - uses: actions/cache@v3
-        with:
-          path: |
-            package/
-          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
