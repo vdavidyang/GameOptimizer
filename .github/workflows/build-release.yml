@@ -8,12 +8,16 @@ on:
 
 jobs:
   package:
+    permissions:
+      contents: write # 显式授予写入权限
     runs-on: ubuntu-latest # 使用GitHub提供的Linux环境
     timeout-minutes: 15 # 设置超时时间
     steps:
       # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整提交历史
 
       # 2. 缓存优化
       # - uses: actions/cache@v3
