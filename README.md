@@ -1,8 +1,17 @@
 # 游戏优化脚本 2.1
 
-![GitHub last commit](https://img.shields.io/github/last-commit/vdavidyang/GameOptimizer) ![GitHub license](https://img.shields.io/github/license/vdavidyang/GameOptimizer)
+![GitHub last commit](https://img.shields.io/github/last-commit/vdavidyang/GameOptimizer) ![GitHub license](https://img.shields.io/github/license/vdavidyang/GameOptimizer)![GitHub Actions](https://img.shields.io/github/actions/workflow/status/vdavidyang/GameOptimizer/test.yml)
+
+[English Version](./README_EN.md) | [中文文档](./README.md)
 
 一个用于优化游戏性能的Windows批处理脚本，通过调整进程优先级和CPU相关性来减少游戏卡顿问题。
+
+## 目录  
+- [功能特性](#-功能特性)  
+- [支持游戏](#-支持游戏)
+- [快速开始](#-快速开始)  
+- [使用说明](#-使用说明)
+- [优化原理](#-优化原理)
 
 ## ✨ 功能特性
 
@@ -17,6 +26,11 @@
 • 三角洲 • 枪神纪 • 界外狂潮 • 守望先锋  
 
 *其他游戏需求？欢迎提交Issue或联系作者*
+
+## ⚙️ 系统要求  
+- ✅ Windows 10/11 32/64位  
+- ✅ 管理员权限运行  
+- ❌ 其中的PowerShell可能不支持Windows 7
 
 ## 📥 快速开始
 
@@ -45,6 +59,41 @@ A：多数用户反馈有效，实测可提升10-20帧，显著改善团战卡�
 
 **Q：脚本报错怎么办？**  
 A：请检查是否以管理员身份运行，或提交Issue反馈问题。
+
+**Q：杀毒软件报毒？**  
+A：因涉及注册表修改，部分杀软可能误报，请添加信任或[查看源码](src/)验证安全性。  
+
+## 🔧 优化原理  
+| 操作目标       | 实现方式                 | 效果             |
+| -------------- | ------------------------ | ---------------- |
+| 游戏进程优先级 | 通过注册表设置High优先级 | 减少系统资源争夺 |
+| 反作弊进程限制 | 绑定到CPU末核+低优先级   | 降低后台占用     |
+
+## 🔄 更新历史  
+### v2.1 (2025-04-11)  
+-  修复`SetProcessPriority.ps1`对CPU逻辑核心数大于等于32的CPU核心掩码左移计算溢出的问题
+- 增加部分游戏
+
+### v2.0 (2025-04-10)  
+
+- 修复无畏契约Bug，瓦学弟放心用
+- 优化脚本输出
+- 增加自动快捷方式创建脚本
+- 优化脚本代码逻辑
+
+### v1.0 (2025-04-9)  
+
+- 初始版本 
+
+## ⚠️ 注意事项  
+
+* `一键设置反作弊优先级.bat` 和 `SetProcessPriority.ps1` **必须保持同目录**  
+
+* 游戏优先级脚本使用完可删除，反作弊脚本**必须保留**  
+
+- 本脚本不会注入或修改任何游戏内存/文件  
+- 优化效果因硬件配置可能有所差异  
+- 使用前建议关闭其他优化工具避免冲突  
 
 ## ⚠️ 免责声明
 
