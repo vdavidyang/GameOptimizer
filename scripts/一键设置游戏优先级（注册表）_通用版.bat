@@ -99,6 +99,12 @@ call :SetPriority "守望先锋" "Overwatch.exe" 3 3
 :: 设置 CSGO2-cs2.exe→ CPU=3 (高), IO=3 (高)
 call :SetPriority "CSGO2" "cs2.exe" 3 3
 
+:: 设置 暗区突围-UAgame.exe→ CPU=3 (高), IO=3 (高)
+call :SetPriority "暗区突围" "UAgame.exe" 3 3
+
+:: 设置 永劫无间-NieRAutomata.exe→ CPU=3 (高), IO=3 (高)
+call :SetPriority "永劫无间" "NieRAutomata.exe" 3 3
+
 :: 如需多款游戏直接复制粘贴上方代码并替换名称即可
 :: 如 call :SetPriority "XXX.exe" X X "游戏名称"
 

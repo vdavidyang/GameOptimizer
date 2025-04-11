@@ -65,6 +65,8 @@ if /i "!choice!"=="y" (
     call :DeleteReg "界外狂潮" "FragPunk.exe"
     call :DeleteReg "守望先锋" "Overwatch.exe"
     call :DeleteReg "CSGO2" "cs2.exe"
+    call :DeleteReg "暗区突围" "UAgame.exe"
+    call :DeleteReg "永劫无间" "NieRAutomata.exe"
 
     :: 结果统计
     echo.
