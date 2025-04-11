@@ -20,12 +20,12 @@ jobs:
         with:
           path: |
             package/
-          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
+          key: ${{ runner.os }}-package-${{ hashFiles('*') }}
 
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
         run: |
-          mkdir -p package/
+          mkdir -p package || { echo "Failed to create package/ directory"; exit 1; }
           cp -r scripts/* package/
           if [ -d "docs" ]; then
             cp -r docs/* package/
