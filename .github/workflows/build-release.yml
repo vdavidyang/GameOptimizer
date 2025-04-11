@@ -16,19 +16,20 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. 缓存优化
-      - uses: actions/cache@v3
-        with:
-          path: |
-            package/
-          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       package/
+      #     key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
 
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
         run: |
-          mkdir -p package/scripts package/docs
-          cp -r scripts/* package/scripts
+          rm -rf package/  # 强制清理旧目录（如果有）
+          mkdir -p package/scripts package/docs || { echo "Failed to create package/ directory"; exit 1; }
+          cp -r scripts/* package/scripts/
           if [ -d "docs" ]; then
-            cp -r docs/* package/docs
+            cp -r docs/* package/docs/
           else
             echo "Warning: No docs directory found."
           fi
