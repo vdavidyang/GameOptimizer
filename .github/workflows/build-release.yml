@@ -25,14 +25,11 @@ jobs:
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
         run: |
-          mkdir -p package/scripts package/docs || { echo "Failed to create package/ directory"; exit 1; }
+          mkdir -p package/scripts package/docs
           cp -r scripts/* package/scripts/
-          if [ -d "docs" ]; then
-            cp -r docs/* package/docs/
-          else
-            echo "Warning: No docs directory found."
-          fi
-          cp README.md LICENSE package/
+          [ -d "docs" ] && cp -r docs/* package/docs/ || echo "No docs directory"
+          cp README.md package/
+          [ -f "LICENSE" ] && cp LICENSE package/ || echo "No LICENSE file"
 
       # 5. 压缩打包（跨平台兼容格式）
       - name: Create ZIP archive

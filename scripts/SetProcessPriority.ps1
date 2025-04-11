@@ -12,8 +12,8 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 # 设置进程名称和优先级的哈希表
 # 设置反作弊进程的优先级为低
 $processSettings = @{
-    "SGuard.exe"= "Idle"
-    "SGuard64" = "Idle"
+    "SGuard.exe"  = "Idle"
+    "SGuard64"    = "Idle"
     "SGuardSvc64" = "Idle"
 }
 
@@ -33,7 +33,7 @@ foreach ($processName in $processSettings.Keys) {
     # 获取进程
     $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
 
-    if ($process -ne $null) {
+    if ($null -ne $process) {
         # 获取当前进程的优先级设置
         $priority = $processSettings[$processName]
 
@@ -44,7 +44,8 @@ foreach ($processName in $processSettings.Keys) {
         $process.ProcessorAffinity = $lastCoreAffinity
         
         Write-Host "已设置进程 '$processName' 的优先级为低，相关性已绑定到 CPU 最后一个核心。"
-    } else {
+    }
+    else {
         Write-Host "未找到进程 '$processName'。"
     }
 }
