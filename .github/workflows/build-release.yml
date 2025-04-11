@@ -25,7 +25,7 @@ jobs:
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
         run: |
-          # mkdir -p package/scripts package/docs
+          mkdir -p package/
           cp -r scripts/* package/
           if [ -d "docs" ]; then
             cp -r docs/* package/
