@@ -1,4 +1,6 @@
-# By 抖音@鱼腥味(119020212)
+# Game-Optimization-Script v2.1.1
+# Released: 2025-04-11
+# By 抖音@鱼腥味(119020212) 转载请注明出处
 
 # 检查管理员权限
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
