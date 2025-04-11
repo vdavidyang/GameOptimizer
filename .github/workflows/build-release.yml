@@ -26,16 +26,19 @@ jobs:
       - name: Prepare files
         run: |
           mkdir -p package/scripts package/docs
-          cp -r scripts/* package/scripts/
+          cp -r scripts/* package/scripts/ || echo "Error: Failed to copy scripts"
           [ -d "docs" ] && cp -r docs/* package/docs/ || echo "No docs directory"
-          cp README.md package/
+          cp README.md package/ || echo "Error: README.md not found"
           [ -f "LICENSE" ] && cp LICENSE package/ || echo "No LICENSE file"
+
+      - name: Debug package contents
+        run: ls -R package/
 
       # 5. 压缩打包（跨平台兼容格式）
       - name: Create ZIP archive
         run: |
           cd package
-          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip *
+          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip * || { echo "Error: ZIP creation failed"; exit 1; }
           cd ..
           sha256sum GameOptimization_${GITHUB_REF_NAME}.zip > checksum.sha256
 
@@ -47,7 +50,7 @@ jobs:
             GameOptimization_${GITHUB_REF_NAME}.zip
             checksum.sha256
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动注入的权限token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # 7. 发送邮件通知
       # - name: Send notification
