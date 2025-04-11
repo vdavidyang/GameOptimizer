@@ -1,4 +1,4 @@
-:: Game-Optimization-Script v2.1.0
+:: Game-Optimization-Script v2.1.1
 :: Released: 2025-04-11
 :: By 抖音@鱼腥味(119020212) 转载请注明出处
 
