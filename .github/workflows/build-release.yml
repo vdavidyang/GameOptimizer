@@ -16,11 +16,11 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. 缓存优化
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       package/
-      #     key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
+      - uses: actions/cache@v3
+        with:
+          path: |
+            package/
+          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
 
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
@@ -35,15 +35,15 @@ jobs:
           fi
           cp README.md LICENSE package/
 
-      # 4.在打包前更新版本号
-      - name: Update versions
-        run: |
-          # 更新脚本文件
-          find scripts/ -name "*.bat" -exec sed -i "s/:: Version: .*/:: Version: ${GITHUB_REF_NAME}/" {} \;
-          # 更新README（仅影响打包内容）
-          sed -i "s/版本: .*/版本: ${GITHUB_REF_NAME}/" README.md
-          # 复制更新后的文件到package目录
-          cp README.md package/
+      # # 4.在打包前更新版本号
+      # - name: Update versions
+      #   run: |
+      #     # 更新脚本文件
+      #     find scripts/ -name "*.bat" -exec sed -i "s/:: Version: .*/:: Version: ${GITHUB_REF_NAME}/" {} \;
+      #     # 更新README（仅影响打包内容）
+      #     sed -i "s/版本: .*/版本: ${GITHUB_REF_NAME}/" README.md
+      #     # 复制更新后的文件到package目录
+      #     cp README.md package/
 
       # 5. 压缩打包（跨平台兼容格式）
       - name: Create ZIP archive
