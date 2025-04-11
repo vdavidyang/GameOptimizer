@@ -1,0 +1,74 @@
+name: Build and Package Release
+
+on:
+  push:
+    tags:
+      - "v*" # 当推送v开头的tag时触发（如v2.1.0）
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  package:
+    runs-on: ubuntu-latest # 使用GitHub提供的Linux环境
+    timeout-minutes: 15 # 设置超时时间
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 缓存优化
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       package/
+      #     key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
+
+      # 3. 创建打包目录（避免包含.git文件夹）
+      - name: Prepare files
+        run: |
+          mkdir -p package/scripts package/docs || { echo "Failed to create package/ directory"; exit 1; }
+          cp -r scripts/* package/scripts/
+          if [ -d "docs" ]; then
+            cp -r docs/* package/docs/
+          else
+            echo "Warning: No docs directory found."
+          fi
+          cp README.md LICENSE package/
+
+      # 5. 压缩打包（跨平台兼容格式）
+      - name: Create ZIP archive
+        run: |
+          cd package
+          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip *
+          cd ..
+          sha256sum GameOptimization_${GITHUB_REF_NAME}.zip > checksum.sha256
+
+      # 6. 上传到Release（自动关联到对应Tag）
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            GameOptimization_${GITHUB_REF_NAME}.zip
+            checksum.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 自动注入的权限token
+
+      # 7. 发送邮件通知
+      # - name: Send notification
+      #   if: always() # 无论构建成功失败都发送
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     server_address: smtp.example.com
+      #     server_port: 587
+      #     username: ${{ secrets.EMAIL_USER }}
+      #     password: ${{ secrets.EMAIL_PASSWORD }}
+      #     subject: "Release ${{ github.ref_name }} build ${{ job.status }}"
+      #     body: |
+      #       Build log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      #       Status: ${{ job.status }}
+      #     to: vdavidyang@gmail.com
+
+      # 8. 失败处理
+      - name: Cleanup on failure
+        if: failure()
+        run: |
+          echo "Build failed! Check the logs"
