@@ -1,4 +1,7 @@
-:: By ¶¶Òô@ÓãĞÈÎ¶(119020212)
+:: Game-Optimization-Script v2.1.0
+:: Released: 2025-04-11
+:: By ¶¶Òô@ÓãĞÈÎ¶(119020212) ×ªÔØÇë×¢Ã÷³ö´¦
+
 @echo off
 setlocal enabledelayedexpansion
 
