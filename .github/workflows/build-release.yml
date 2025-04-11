@@ -25,32 +25,49 @@ jobs:
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
         run: |
-          mkdir -p package/scripts package/docs
-          cp -r scripts/* package/scripts/ || echo "Error: Failed to copy scripts"
-          [ -d "docs" ] && cp -r docs/* package/docs/ || echo "No docs directory"
-          cp README.md package/ || echo "Error: README.md not found"
-          [ -f "LICENSE" ] && cp LICENSE package/ || echo "No LICENSE file"
-
-      - name: Debug package contents
-        run: ls -R package/
+          rm -rf package/  # 强制清理旧目录
+          mkdir -p package/{scripts,docs}
+          echo "正在复制脚本文件..."
+          cp -v scripts/* package/scripts/  # 显示详细复制过程
+          [ -d "docs" ] && cp -vr docs/* package/docs/ || echo "无文档目录"
+          cp -v README.md package/
+          [ -f "LICENSE" ] && cp -v LICENSE package/ || echo "无 LICENSE 文件"
 
       # 5. 压缩打包（跨平台兼容格式）
       - name: Create ZIP archive
         run: |
+          echo "当前目录结构:"
+          ls -R
+          echo "开始打包..."
           cd package
-          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip * || { echo "Error: ZIP creation failed"; exit 1; }
+          zip -r ../GameOptimization_${GITHUB_REF_NAME}.zip *
+          echo "打包完成，校验文件..."
           cd ..
           sha256sum GameOptimization_${GITHUB_REF_NAME}.zip > checksum.sha256
+          echo "生成文件列表:"
+          ls -l
 
-      # 6. 上传到Release（自动关联到对应Tag）
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            GameOptimization_${GITHUB_REF_NAME}.zip
-            checksum.sha256
+      # 6. 创建 Release 并上传 ZIP 文件
+      - name: Create Release
+        uses: actions/create-release@v1
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Upload ZIP
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./GameOptimization_${{ github.ref_name }}.zip
+          asset_name: GameOptimization_${{ github.ref_name }}.zip
+          asset_content_type: application/zip
 
       # 7. 发送邮件通知
       # - name: Send notification
