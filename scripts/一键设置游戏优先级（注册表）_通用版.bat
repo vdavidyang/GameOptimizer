@@ -57,13 +57,13 @@ echo.
 
 :: 设置反作弊进程 SGuard.exe 和 SGuard64.exe CPU优先级和I/O优先级
 :: 设置 SGuard.exe → CPU=1 (低), IO=0 (极低)
-call :SetPriority "TX反作弊进程" "SGuard.exe" 1 0
+call :SetPriority "TX反作弊进程-SGuard" "SGuard.exe" 1 0
 
 :: 设置 SGuard64.exe → CPU=1 (低), IO=0 (极低)
-call :SetPriority "TX反作弊进程" "SGuard64.exe" 1 0
+call :SetPriority "TX反作弊进程-SGuard64" "SGuard64.exe" 1 0
 
 :: 设置 SGuardSvc64.exe → CPU=1 (低), IO=0 (极低)
-call :SetPriority "TX反作弊进程" "SGuardSvc64.exe" 1 0
+call :SetPriority "TX反作弊进程-SGuardSvc64" "SGuardSvc64.exe" 1 0
 
 
 :: 设置游戏进程优先级
@@ -78,9 +78,9 @@ call :SetPriority "英雄联盟" "League of Legends.exe" 3 3
 call :SetPriority "穿越火线" "crossfire.exe" 3 3
 
 :: 设置 无畏契约-VALORANT-Win64-Shipping.exe → CPU=3 (高), IO=3 (高)
-call :SetPriority "无畏契约" "VALORANT-Win64-Shipping.exe" 3 3
+call :SetPriority "无畏契约1" "VALORANT-Win64-Shipping.exe" 3 3
 :: 设置 无畏契约-VALORANT.exe → CPU=3 (高), IO=3 (高)
-call :SetPriority "无畏契约" "VALORANT.exe" 3 3
+call :SetPriority "无畏契约2" "VALORANT.exe" 3 3
 
 :: 设置 三角洲-DeltaForce-Win64-Shipping.exe → CPU=3 (高), IO=3 (高)
 call :SetPriority "三角洲WeGame版" "DeltaForce-Win64-Shipping.exe" 3 3
@@ -102,8 +102,8 @@ call :SetPriority "CSGO2" "cs2.exe" 3 3
 :: 设置 暗区突围-UAgame.exe→ CPU=3 (高), IO=3 (高)
 call :SetPriority "暗区突围" "UAgame.exe" 3 3
 
-:: 设置 永劫无间-NieRAutomata.exe→ CPU=3 (高), IO=3 (高)
-call :SetPriority "永劫无间" "NieRAutomata.exe" 3 3
+:: 设置 永劫无间-NarakaBladepoint.exe→ CPU=3 (高), IO=3 (高)
+call :SetPriority "永劫无间" "NarakaBladepoint.exe" 3 3
 
 :: 如需多款游戏直接复制粘贴上方代码并替换名称即可
 :: 如 call :SetPriority "XXX.exe" X X "游戏名称"

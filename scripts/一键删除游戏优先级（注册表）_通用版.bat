@@ -50,15 +50,15 @@ if /i "!choice!"=="y" (
     set "failed=0"
     
     :: 删除SGuard相关进程
-    call :DeleteReg "TX反作弊" "SGuard.exe"
-    call :DeleteReg "TX反作弊" "SGuard64.exe"
-    call :DeleteReg "TX反作弊" "SGuardSvc64.exe"
+    call :DeleteReg "TX反作弊-SGuard" "SGuard.exe"
+    call :DeleteReg "TX反作弊-SGuard64" "SGuard64.exe"
+    call :DeleteReg "TX反作弊-SGuardSvc64" "SGuardSvc64.exe"
 
     :: 删除游戏进程
     call :DeleteReg "英雄联盟" "League of Legends.exe"
     call :DeleteReg "穿越火线" "crossfire.exe"
-    call :DeleteReg "无畏契约" "VALORANT-Win64-Shipping.exe"
-    call :DeleteReg "无畏契约" "VALORANT.exe"
+    call :DeleteReg "无畏契约1" "VALORANT-Win64-Shipping.exe"
+    call :DeleteReg "无畏契约2" "VALORANT.exe"
     call :DeleteReg "三角洲WeGame版" "DeltaForce-Win64-Shipping.exe"
     call :DeleteReg "三角洲官方版" "DeltaForceClient-Win64-Shipping.exe"
     call :DeleteReg "枪神纪" "TPS.exe"

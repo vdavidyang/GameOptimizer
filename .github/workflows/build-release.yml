@@ -19,12 +19,15 @@ jobs:
         with:
           fetch-depth: 0 # 获取完整提交历史
 
-      # 2. 缓存优化
-      - uses: actions/cache@v3
+      # 2. 缓存优化（更细粒度的缓存）
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: cache
         with:
           path: |
             package/
-          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*') }}
+            scripts/
+          key: ${{ runner.os }}-package-${{ hashFiles('scripts/*', 'docs/*') }}
 
       # 3. 创建打包目录（避免包含.git文件夹）
       - name: Prepare files
@@ -37,7 +40,7 @@ jobs:
           cp -v README.md package/
           [ -f "LICENSE" ] && cp -v LICENSE package/ || echo "无 LICENSE 文件"
 
-      # 4.在打包前更新版本号
+      # 4. 在打包前更新版本号
       - name: Update versions
         run: |
           # 更新脚本文件
@@ -83,23 +86,11 @@ jobs:
           asset_name: GameOptimization_${{ github.ref_name }}.zip
           asset_content_type: application/zip
 
-      # 7. 发送邮件通知
-      # - name: Send notification
-      #   if: always() # 无论构建成功失败都发送
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: smtp.example.com
-      #     server_port: 587
-      #     username: ${{ secrets.EMAIL_USER }}
-      #     password: ${{ secrets.EMAIL_PASSWORD }}
-      #     subject: "Release ${{ github.ref_name }} build ${{ job.status }}"
-      #     body: |
-      #       Build log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      #       Status: ${{ job.status }}
-      #     to: vdavidyang@gmail.com
-
-      # 8. 失败处理
+      # 7. 失败处理（更详细的日志输出）
       - name: Cleanup on failure
         if: failure()
         run: |
           echo "Build failed! Check the logs"
+          echo "::group::Debug Info"
+          ls -R
+          echo "::endgroup::"
