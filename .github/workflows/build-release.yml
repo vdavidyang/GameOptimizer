@@ -41,14 +41,14 @@ jobs:
           [ -f "LICENSE" ] && cp -v LICENSE package/ || echo "无 LICENSE 文件"
 
       # 4. 在打包前更新版本号
-      - name: Update versions
-        run: |
-          # 更新脚本文件
-          find scripts/ -name "*.bat" -exec sed -i "s/:: Version: .*/:: Version: ${GITHUB_REF_NAME}/" {} \;
-          # 更新README（仅影响打包内容）
-          sed -i "s/版本: .*/版本: ${GITHUB_REF_NAME}/" README.md
-          # 复制更新后的文件到package目录
-          cp README.md package/
+      # - name: Update versions
+      #   run: |
+      #     # 更新脚本文件
+      #     find scripts/ -name "*.bat" -exec sed -i "s/:: Version: .*/:: Version: ${GITHUB_REF_NAME}/" {} \;
+      #     # 更新README（仅影响打包内容）
+      #     sed -i "s/版本: .*/版本: ${GITHUB_REF_NAME}/" README.md
+      #     # 复制更新后的文件到package目录
+      #     cp README.md package/
 
       # 5. 压缩打包（跨平台兼容格式）
       - name: Create ZIP archive

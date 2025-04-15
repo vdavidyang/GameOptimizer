@@ -105,7 +105,7 @@ call :SetPriority "暗区突围" "UAgame.exe" 3 3
 :: 设置 永劫无间-NarakaBladepoint.exe→ CPU=3 (高), IO=3 (高)
 call :SetPriority "永劫无间" "NarakaBladepoint.exe" 3 3
 
-:: 如需多款游戏直接复制粘贴上方代码并替换名称即可
+:: 如需多款游戏直接复制粘贴上方代码然后替换名称即可
 :: 如 call :SetPriority "XXX.exe" X X "游戏名称"
 
 :: 完成提示
