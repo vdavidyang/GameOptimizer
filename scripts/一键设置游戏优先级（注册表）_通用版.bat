@@ -1,5 +1,5 @@
-:: Game-Optimization-Script v2.1.1
-:: Released: 2025-04-11
+:: Game-Optimization-Script v2.2.0
+:: Released: 2025-04-17
 :: By 抖音@鱼腥味(119020212) 转载请注明出处
 
 @echo off
@@ -34,7 +34,7 @@ if %errorLevel% neq 0 (
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║
-echo    ║        游戏进程优先级优化工具 v2.1           ║
+echo    ║        游戏进程优先级优化工具 v2.2.0        ║
 echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.
