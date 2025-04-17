@@ -28,7 +28,7 @@ if %errorLevel% neq 0 (
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║
-echo    ║        一键设置TX反作弊优先级工具 v2.2.0    ║
+echo    ║        一键设置TX反作弊优先级工具 v2.3.0    ║
 echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.

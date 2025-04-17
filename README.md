@@ -1,4 +1,4 @@
-# 游戏优化脚本 2.1.1
+# 游戏优化脚本 2.3.0
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/vdavidyang/GameOptimizer) ![GitHub license](https://img.shields.io/github/license/vdavidyang/GameOptimizer)![GitHub Actions](https://img.shields.io/github/actions/workflow/status/vdavidyang/GameOptimizer/test.yml)
 
