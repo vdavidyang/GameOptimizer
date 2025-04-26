@@ -1,5 +1,5 @@
-# Game-Optimization-Script v2.3.0
-# Released: 2025-04-17
+# Game-Optimization-Script v2.3.1
+# Released: 2025-04-26
 # By 抖音@鱼腥味(119020212) 转载请注明出处
 
 # 检查管理员权限
@@ -30,7 +30,6 @@ $antiCheatProcessSettings = @{
     "SGuard"      = @{ Priority = "Idle"; Name = "TX反作弊-SGuard" }
     "SGuard64"    = @{ Priority = "Idle"; Name = "TX反作弊-SGuard64" }
     "SGuardSvc64" = @{ Priority = "Idle"; Name = "TX反作弊-SGuardSvc64" }
-    "notepad"     = @{ Priority = "Idle"; Name = "记事本" }
 }
 
 # 使用更现代的CIM命令替代WMI
@@ -72,8 +71,8 @@ foreach ($processName in $antiCheatProcessSettings.Keys) {
     }
 }
 
-Write-Status "By 抖音@鱼腥味(119020212) 转载请注明出处"
-Write-Status "本脚本完全免费，如果你是收费购买请联系卖家退款！！！"
+# Write-Status "By 抖音@鱼腥味(119020212) 转载请注明出处"
+# Write-Status "本脚本完全免费，如果你是收费购买请联系卖家退款！！！"
 
 # 封装倒计时函数
 function Start-Countdown {
@@ -89,4 +88,4 @@ function Start-Countdown {
 }
 
 Start-Countdown -seconds 5
-exit
+# exit

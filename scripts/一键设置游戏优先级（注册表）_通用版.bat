@@ -1,5 +1,5 @@
-:: Game-Optimization-Script v2.3.0
-:: Released: 2025-04-17
+:: Game-Optimization-Script v2.3.1
+:: Released: 2025-04-26
 :: By 抖音@鱼腥味(119020212) 转载请注明出处
 
 @echo off
@@ -15,6 +15,9 @@ title 游戏进程优先级优化工具
 
 :: 颜色：绿色
 :: color 0A
+
+:: 设置控制台输出编码为GBK
+chcp 936 >nul
 
 :: 检查是否以管理员身份运行
 net session >nul 2>&1
@@ -34,7 +37,7 @@ if %errorLevel% neq 0 (
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║
-echo    ║        游戏进程优先级优化工具 v2.3.0        ║
+echo    ║        游戏进程优先级优化工具 v2.3.1         ║
 echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.
@@ -137,14 +140,27 @@ if /i "!choice!"=="y" (
     goto choice
 )
 
-echo.
-echo By 抖音@鱼腥味(119020212) 转载请注明出处
-echo 本脚本完全免费，如果你是收费购买请联系卖家退款！！！
-echo.
+goto :Endecho
 
 pause
 exit /b
 
+:Endecho
+echo.
+echo    ╔══════════════════════════════════════════════╗
+echo    ║                                              ║
+echo    ║  By 抖音@鱼腥味(119020212) 转载请注明出处    ║
+echo    ║                                              ║
+echo    ║  有需要鞋子的兄弟添加微信：Mrmuscle12138     ║
+echo    ║  大学生赚点生活费，主播自己也是买了很多年了  ║
+echo    ║  这是泉州的老板，无论是质量还是价格都是杠杠的║
+echo    ║  售后也好，支持7天无理由，质量问题包退换     ║
+echo    ║                                              ║
+echo    ║             本脚本完全免费                   ║
+echo    ║     如果你是收费购买请联系卖家退款！！！     ║
+echo    ║                                              ║
+echo    ╚══════════════════════════════════════════════╝
+echo.
 
 :: 设置优先级函数
 :SetPriority
