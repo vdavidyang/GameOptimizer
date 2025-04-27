@@ -1,19 +1,43 @@
-:: Game-Optimization-Script v2.3.1
-:: Released: 2025-04-26
-:: By 抖音@鱼腥味(119020212) 转载请注明出处
-
 @echo off
+REM
+ REM @Author: vdavidyang vdavidyang@gmail.com
+ REM @Date: 2025-04-11 15:39:30
+ REM @LastEditors: vdavidyang vdavidyang@gmail.com
+ REM @LastEditTime: 2025-04-27 17:06:34
+ REM @FilePath: \GameOptimizer\scripts\一键设置TX反作弊优先级.bat
+ REM @Description: 
+ REM @Copyright (c) 2025 by vdavidyang vdavidyang@gmail.com, All Rights Reserved. 
+REM
 
-:: 设置变量延迟显示
-setlocal enabledelayedexpansion
 
-:: 一键设置TX反作弊优先级工具
+REM 设置变量延迟显示
+setlocal EnableDelayedExpansion
+
+REM 一键设置TX反作弊优先级工具
 title 一键设置TX反作弊优先级工具
 
-:: 设置控制台输出编码为GBK
+REM 设置控制台输出编码为GBK
 chcp 936 >nul
 
-:: 检查管理员权限
+REM 检查管理员权限，如果当前用户不是管理员，则请求管理员权限
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if %errorlevel% neq 0 (
+    echo 请求管理员权限...
+    goto UACPrompt
+) else ( goto gotAdmin )
+
+:UACPrompt
+echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+"%temp%\getadmin.vbs"
+exit /b
+
+:gotAdmin
+if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+pushd "%CD%"
+cd /d "%~dp0"
+
+REM 检查管理员权限
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo.
@@ -27,11 +51,11 @@ if %errorLevel% neq 0 (
     exit /b
 )
 
-:: 打印标题
+REM 打印标题
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║
-echo    ║        一键设置TX反作弊优先级工具 v2.3.1     ║
+echo    ║        一键设置TX反作弊优先级工具 v2.3.2     ║
 echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.

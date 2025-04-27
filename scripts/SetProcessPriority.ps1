@@ -1,6 +1,13 @@
-# Game-Optimization-Script v2.3.1
-# Released: 2025-04-26
-# By 抖音@鱼腥味(119020212) 转载请注明出处
+<#
+ # @Author: vdavidyang vdavidyang@gmail.com
+ # @Date: 2025-04-11 15:39:30
+ # @LastEditors: vdavidyang vdavidyang@gmail.com
+ # @LastEditTime: 2025-04-27 17:11:55
+ # @FilePath: \GameOptimizer\scripts\SetProcessPriority.ps1
+ # @Description: 
+ # @Copyright (c) 2025 by vdavidyang vdavidyang@gmail.com, All Rights Reserved. 
+#>
+
 
 # 检查管理员权限
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -9,12 +16,16 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
+
+<#
 # 优先级解释
 # Idle: 空闲优先级，用于低优先级进程
 # BelowNormal: 低于正常优先级，用于普通优先级进程
 # Normal: 正常优先级，用于大多数进程
 # AboveNormal: 高于正常优先级，用于需要快速响应的进程
 # High: 高优先级，用于关键进程
+#>
+
 
 # 定义优先级对应的中文名称
 $priorityMap = @{

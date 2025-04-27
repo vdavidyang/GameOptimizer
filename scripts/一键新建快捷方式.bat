@@ -1,12 +1,63 @@
-:: Game-Optimization-Script v2.3.1
-:: Released: 2025-04-26
-:: By 抖音@鱼腥味(119020212) 转载请注明出处
-
 @echo off
-setlocal enabledelayedexpansion
+REM
+ REM @Author: vdavidyang vdavidyang@gmail.com
+ REM @Date: 2025-04-11 15:39:30
+ REM @LastEditors: vdavidyang vdavidyang@gmail.com
+ REM @LastEditTime: 2025-04-27 17:07:15
+ REM @FilePath: \GameOptimizer\scripts\一键新建快捷方式.bat
+ REM @Description: 
+ REM @Copyright (c) 2025 by vdavidyang vdavidyang@gmail.com, All Rights Reserved. 
+REM
+
+
+setlocal EnableDelayedExpansion
+
+REM 一键新建快捷方式
+title 一键新建快捷方式
 
 :: 设置控制台输出编码为GBK
 chcp 936 >nul
+
+REM 检查管理员权限，如果当前用户不是管理员，则请求管理员权限
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if %errorlevel% neq 0 (
+    echo 请求管理员权限...
+    goto UACPrompt
+) else ( goto gotAdmin )
+
+:UACPrompt
+echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+"%temp%\getadmin.vbs"
+exit /b
+
+:gotAdmin
+if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )
+pushd "%CD%"
+cd /d "%~dp0"
+
+REM 检查管理员权限
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+  echo.
+  echo    ╔══════════════════════════════════════════════╗
+  echo    ║                                              ║
+  echo    ║        请右键"以管理员身份运行"此脚本！       ║
+  echo    ║                                              ║
+  echo    ╚══════════════════════════════════════════════╝
+  echo.
+  pause
+  exit /b
+)
+
+REM 打印标题
+echo.
+echo    ╔══════════════════════════════════════════════╗
+echo    ║                                              ║
+echo    ║            一键新建快捷方式 v2.3.2           ║
+echo    ║                                              ║
+echo    ╚══════════════════════════════════════════════╝
+echo.
 
 :: 使用当前脚本所在目录作为工作目录
 cd /d "%~dp0"
