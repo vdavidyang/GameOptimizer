@@ -3,7 +3,7 @@ REM
  REM @Author: vdavidyang vdavidyang@gmail.com
  REM @Date: 2025-04-11 15:39:30
  REM @LastEditors: vdavidyang vdavidyang@gmail.com
- REM @LastEditTime: 2025-04-27 17:07:41
+ REM @LastEditTime: 2025-07-26 19:55:48
  REM @FilePath: \GameOptimizer\scripts\一键删除游戏优先级（注册表）_通用版.bat
  REM @Description: 
  REM @Copyright (c) 2025 by vdavidyang vdavidyang@gmail.com, All Rights Reserved. 
@@ -63,6 +63,7 @@ echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.
 
+REM 选择是否确认删除游戏优先级设置
 :choice
 
 set /p choice=是否确认删除游戏优先级设置？(Y-是/N-否, 默认Y):

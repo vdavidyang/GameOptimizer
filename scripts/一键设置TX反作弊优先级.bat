@@ -26,6 +26,7 @@ if %errorlevel% neq 0 (
     goto UACPrompt
 ) else ( goto gotAdmin )
 
+REM 请求管理员权限
 :UACPrompt
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
@@ -76,6 +77,7 @@ echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.
 
+REM 以管理员权限运行PowerShell脚本
 PowerShell -NoProfile -ExecutionPolicy Bypass -File "%~dp0SetProcessPriority.ps1"
 
 exit

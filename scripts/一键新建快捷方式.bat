@@ -15,7 +15,7 @@ setlocal EnableDelayedExpansion
 REM 一键新建快捷方式
 title 一键新建快捷方式
 
-:: 设置控制台输出编码为GBK
+REM 设置控制台输出编码为GBK
 chcp 936 >nul
 
 REM 检查管理员权限，如果当前用户不是管理员，则请求管理员权限
@@ -25,6 +25,7 @@ if %errorlevel% neq 0 (
     goto UACPrompt
 ) else ( goto gotAdmin )
 
+REM 管理员权限获取
 :UACPrompt
 echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
 echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
@@ -59,20 +60,20 @@ echo    ║                                              ║
 echo    ╚══════════════════════════════════════════════╝
 echo.
 
-:: 使用当前脚本所在目录作为工作目录
+REM 使用当前脚本所在目录作为工作目录
 cd /d "%~dp0"
 
 set "batfile=一键设置TX反作弊优先级.bat"
 set "lnkname=一键设置TX反作弊优先级.lnk"
 
-:: 检查源文件是否存在
+REM 检查源文件是否存在
 if not exist "%batfile%" (
     echo 错误：当前目录下未找到 "%batfile%"
     pause
     exit /b 1
 )
 
-:: 使用 PowerShell 创建快捷方式
+REM 使用 PowerShell 创建快捷方式
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║
@@ -92,7 +93,7 @@ set "ps_create=%ps_create% $shortcut.Save();"
 
 powershell -Command "%ps_create%"
 
-:: 检查快捷方式是否创建成功
+REM 检查快捷方式是否创建成功
 if not exist "%USERPROFILE%\Desktop\%lnkname%" (
     echo.
     echo    ╔══════════════════════════════════════════════╗
@@ -105,7 +106,7 @@ if not exist "%USERPROFILE%\Desktop\%lnkname%" (
     exit /b 1
 )
 
-:: 修改快捷方式以管理员权限运行
+REM 修改快捷方式以管理员权限运行
 echo.
 echo    ╔══════════════════════════════════════════════╗
 echo    ║                                              ║

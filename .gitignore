@@ -1,5 +1,7 @@
 tmp/
 游戏优化脚本_v*/
+电源计划/
 *.zip
 *.rar
 *.sha256
+.vscode/
